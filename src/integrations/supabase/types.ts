@@ -14,7 +14,147 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          name: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          name: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          name?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      questions: {
+        Row: {
+          category: string
+          correct_answer: number
+          created_at: string
+          difficulty: string
+          explanation: string | null
+          id: string
+          is_active: boolean
+          options: Json
+          question: string
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          correct_answer: number
+          created_at?: string
+          difficulty: string
+          explanation?: string | null
+          id?: string
+          is_active?: boolean
+          options: Json
+          question: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          correct_answer?: number
+          created_at?: string
+          difficulty?: string
+          explanation?: string | null
+          id?: string
+          is_active?: boolean
+          options?: Json
+          question?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      quiz_attempts: {
+        Row: {
+          category: string
+          created_at: string
+          difficulty: string
+          id: string
+          percentage: number
+          questions_data: Json
+          score: number
+          time_spent: number
+          total_questions: number
+          user_id: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          difficulty: string
+          id?: string
+          percentage: number
+          questions_data: Json
+          score: number
+          time_spent: number
+          total_questions: number
+          user_id: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          difficulty?: string
+          id?: string
+          percentage?: number
+          questions_data?: Json
+          score?: number
+          time_spent?: number
+          total_questions?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_stats: {
+        Row: {
+          average_score: number
+          correct_answers: number
+          created_at: string
+          id: string
+          last_quiz_date: string | null
+          streak: number
+          total_questions: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          average_score?: number
+          correct_answers?: number
+          created_at?: string
+          id?: string
+          last_quiz_date?: string | null
+          streak?: number
+          total_questions?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          average_score?: number
+          correct_answers?: number
+          created_at?: string
+          id?: string
+          last_quiz_date?: string | null
+          streak?: number
+          total_questions?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
