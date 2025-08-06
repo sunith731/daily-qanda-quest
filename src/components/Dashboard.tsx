@@ -28,9 +28,10 @@ interface DashboardProps {
   onStartQuiz: () => void;
   onViewHistory: () => void;
   onLogout: () => void;
+  onAdminAccess?: () => void;
 }
 
-export function Dashboard({ user, onStartQuiz, onViewHistory, onLogout }: DashboardProps) {
+export function Dashboard({ user, onStartQuiz, onViewHistory, onLogout, onAdminAccess }: DashboardProps) {
   const accuracy = user.stats.totalQuestions > 0 
     ? Math.round((user.stats.correctAnswers / user.stats.totalQuestions) * 100)
     : 0;
@@ -202,6 +203,16 @@ export function Dashboard({ user, onStartQuiz, onViewHistory, onLogout }: Dashbo
                   <Calendar className="w-4 h-4 mr-2" />
                   View Quiz History
                 </Button>
+                {onAdminAccess && (
+                  <Button 
+                    variant="outline" 
+                    className="w-full justify-start border-warning/50 text-warning hover:bg-warning/5" 
+                    onClick={onAdminAccess}
+                  >
+                    <Target className="w-4 h-4 mr-2" />
+                    Admin Panel
+                  </Button>
+                )}
                 <Button variant="outline" className="w-full justify-start">
                   <Trophy className="w-4 h-4 mr-2" />
                   Leaderboard

@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import { AuthForm } from "@/components/AuthForm";
 import { Dashboard } from "@/components/Dashboard";
 import { QuizInterface } from "@/components/QuizInterface";
 import { QuizResults } from "@/components/QuizResults";
 import { QuizHistory } from "@/components/QuizHistory";
+import { AdminPanel } from "@/components/AdminPanel";
 import { mockQuestions, mockUser, mockQuizHistory, type User, type QuizAttempt } from "@/data/mockData";
 import { useToast } from "@/hooks/use-toast";
 
-type AppState = 'auth' | 'dashboard' | 'quiz' | 'results' | 'history';
+type AppState = 'auth' | 'dashboard' | 'quiz' | 'results' | 'history' | 'admin';
 
 const Index = () => {
   const [currentState, setCurrentState] = useState<AppState>('auth');
@@ -18,6 +20,9 @@ const Index = () => {
     timeSpent: number;
   } | null>(null);
   const { toast } = useToast();
+  
+  // Check if user is admin (you can set this email to your admin email)
+  const isAdmin = user?.email === '19036.knack@gmail.com' || user?.email?.includes('admin');
 
   const handleLogin = (email: string, password: string) => {
     // Mock login - in real app, this would validate against backend
@@ -109,6 +114,10 @@ const Index = () => {
     });
   };
 
+  const handleAdminAccess = () => {
+    setCurrentState('admin');
+  };
+
   if (!user && currentState === 'auth') {
     return <AuthForm onLogin={handleLogin} onSignup={handleSignup} />;
   }
@@ -125,6 +134,7 @@ const Index = () => {
           onStartQuiz={handleStartQuiz}
           onViewHistory={handleViewHistory}
           onLogout={handleLogout}
+          onAdminAccess={isAdmin ? handleAdminAccess : undefined}
         />
       );
     
@@ -159,6 +169,9 @@ const Index = () => {
           onViewDetails={handleViewDetails}
         />
       );
+    
+    case 'admin':
+      return <AdminPanel />;
     
     default:
       return null;
